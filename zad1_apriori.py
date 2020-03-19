@@ -54,19 +54,12 @@ def self_joint(old_collections):
         for collection in old_collections:
             if collection[:number_of_first_objects] == first_objects:
                 following.append(collection[number_of_first_objects:][0])
-        # new_collection = []
-        # new_collection.append(first_objects[0])
-        # [new_collection.append(item[0]) for item in following]
 
         following_combinations = [combination for combination in itertools.combinations(following, 2)]
-
 
         for item in following_combinations:
             new_collections.append(first_objects + item)
 
-
-        # new_collection.append(following)
-        # new_collections.append(tuple(new_collection))
     return new_collections
 
 
@@ -90,6 +83,7 @@ while True:
     frequent_collection_dict = delete_not_frequent_collections(frequency_dict)
     print("frequent_collection_dict:", frequent_collection_dict)
     if k == GIVEN_K_LENGTH:
+
         print("The end")
         break
     k += 1

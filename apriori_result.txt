@@ -1,0 +1,2 @@
+# 13 is number of occurance, support is 13 / 1000 = 0.013
+{('rukola', 'szpinak', 'kapusta', 'kaszka manna'): 13}
