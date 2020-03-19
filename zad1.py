@@ -6,8 +6,8 @@ def import_data(file_name: str):
     file = open(file_name, 'r')
     for line in file:
         # line = line.replace("]", "").replace("[", "")
-        line = line.translate({ord(i): None for i in ['[', ']', ' ', '\ufeff']})
-        transaction = line.strip().split(',')
+        line = line.translate({ord(i): None for i in ['[', ']', '\ufeff']})
+        transaction = line.strip().split(', ')
         data.append(transaction)
     return data
 
@@ -31,6 +31,7 @@ def get_frequency_dict(collections):
                     collection_counter += 1
             elif set(collection).issubset(set(transaction)):  # set(collection).issubset(set(transaction))
                 collection_counter += 1
+
         freq_dict[collection] = collection_counter
     return freq_dict
 
@@ -52,20 +53,28 @@ def self_joint(old_collections):
         following = []
         for collection in old_collections:
             if collection[:number_of_first_objects] == first_objects:
-                following.append(collection[number_of_first_objects:])
-        new_collection = []
-        new_collection.append(first_objects[0])
-        [new_collection.append(item[0]) for item in following]
+                following.append(collection[number_of_first_objects:][0])
+        # new_collection = []
+        # new_collection.append(first_objects[0])
+        # [new_collection.append(item[0]) for item in following]
+
+        following_combinations = [combination for combination in itertools.combinations(following, 2)]
+
+
+        for item in following_combinations:
+            new_collections.append(first_objects + item)
+
+
         # new_collection.append(following)
-        new_collections.append(tuple(new_collection))
+        # new_collections.append(tuple(new_collection))
     return new_collections
 
 
-SUPPORT_THRESHOLD = 0.5
-GIVEN_K_LENGTH = 3
+SUPPORT_THRESHOLD = 0.01
+GIVEN_K_LENGTH = 4
 
-data = import_data('asocjacja_demo.txt')
-# data = import_data('asocjacja.txt')
+# data = import_data('asocjacja_demo.txt')
+data = import_data('asocjacja.txt')
 number_of_transactions = len(data)
 print(data)
 
